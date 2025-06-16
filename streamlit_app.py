@@ -63,16 +63,17 @@ if btnEliminar:
 st.sidebar.markdown("""---""")
 newname = st.sidebar.text_input("Actualizar nombre")
 btnActualizar = st.sidebar.button("Actualizar")
-  if btnActualizar:
-    updatename = loadByName(nameSearch)
-    if updatename is None:
-      st.write(f"{nameSearch} no existe")
-    else:
-      myupdatename = dbNames.document(updatename.id)
+  
+if btnActualizar:
+  updatename = loadByName(nameSearch)
+  if updatename is None:
+    st.write(f"{nameSearch} no existe")
+  else:
+    myupdatename = dbNames.document(updatename.id)
     myupdatename.update({
-          "name": newname
+    "name": newname
     })
-    
+
 names_ref = list(db.collection(u'names').stream())
 names_dict = list(map(lambda x: x.to_dict(), names_ref))
 names_dataframe = pd.DataFrame(names_dict)
